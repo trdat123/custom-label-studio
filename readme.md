@@ -14,6 +14,32 @@ git clone https://github.com/trdat123/custom-label-studio.git
 
 You need to go to each frontend folder `label-studio-frontend`, `dm2` and `label-studio/label_studio/frontend` and install node module by using **_yarn_**
 
+## Config .env file
+
+you need to create .env file and paste into it. 
+### Frontend folder in label studio 
+
+```
+NO_BUILD=true 
+```
+
+### Label-studio-frontend 
+
+```
+BUILD_NO_CHUNKS=true
+BUILD_NO_HASH=true
+BUILD_MODULE=true
+NODE_ENV=production
+```
+### dm2
+
+```
+BUILD_NO_CHUNKS=true
+BUILD_NO_HASH=true
+BUILD_MODULE=true
+NODE_ENV=production
+```
+
 ## Build locally for development
 
 Run following command below:
