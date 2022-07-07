@@ -7,83 +7,79 @@ import { DraftPanel } from "../DraftPanel/DraftPanel";
 import { AnnotationHistory } from "./AnnotationHistory.tsx";
 import "./CurrentEntity.styl";
 
-const injector = inject('store');
+const injector = inject("store");
 
-export const CurrentEntity = injector(observer(({
-  entity,
-  showHistory = true,
-}) => {
+export const CurrentEntity = injector(
+  observer(({ entity, showHistory = true }) => {
+    useEffect(() => {
+      const copyToClipboard = ev => {
+        const { clipboardData } = ev;
+        const results = entity.serializedSelection;
 
-  useEffect(()=>{
-    const copyToClipboard = (ev) => {
-      const { clipboardData } = ev;
-      const results = entity.serializedSelection;
-      
-      clipboardData.setData('application/json', JSON.stringify(results));
-      ev.preventDefault();
-
-    };
-    const pasteFromClipboard = (ev) => {
-      const { clipboardData } = ev;
-      const data = clipboardData.getData('application/json');
-
-      try {
-        const results = JSON.parse(data);
-
-        entity.appendResults(results);
+        clipboardData.setData("application/json", JSON.stringify(results));
         ev.preventDefault();
-      } catch (e) {
-        return;
-      }
-    };
+      };
+      const pasteFromClipboard = ev => {
+        const { clipboardData } = ev;
+        const data = clipboardData.getData("application/json");
 
-    const copyHandler = (ev) =>{
-      const selection = window.getSelection();
-      const exceptionList = ['input', 'textarea'];
+        try {
+          const results = JSON.parse(data);
 
-      if (!selection.isCollapsed || exceptionList.includes( ev.target.tagName.toLowerCase())) return;
+          entity.appendResults(results);
+          ev.preventDefault();
+        } catch (e) {
+          return;
+        }
+      };
 
-      copyToClipboard(ev);
-    };
-    const pasteHandler = (ev) =>{
-      const selection = window.getSelection();
+      const copyHandler = ev => {
+        const selection = window.getSelection();
+        const exceptionList = ["input", "textarea"];
 
-      if (Node.ELEMENT_NODE === selection.focusNode?.nodeType && selection.focusNode?.focus) return;
+        if (!selection.isCollapsed || exceptionList.includes(ev.target.tagName.toLowerCase())) return;
 
-      pasteFromClipboard(ev);
-    };
-    const cutHandler = (ev) =>{
-      const selection = window.getSelection();
+        copyToClipboard(ev);
+      };
+      const pasteHandler = ev => {
+        const selection = window.getSelection();
 
-      if (!selection.isCollapsed) return;
+        if (Node.ELEMENT_NODE === selection.focusNode?.nodeType && selection.focusNode?.focus) return;
 
-      copyToClipboard(ev);
-      entity.deleteSelectedRegions();
-    };
+        pasteFromClipboard(ev);
+      };
+      const cutHandler = ev => {
+        const selection = window.getSelection();
 
-    window.addEventListener("copy", copyHandler);
-    window.addEventListener("paste", pasteHandler);
-    window.addEventListener("cut", cutHandler);
-    return () => {
-      window.removeEventListener("copy", copyHandler);
-      window.removeEventListener("paste", pasteHandler);
-      window.removeEventListener("cut", cutHandler);
-    };
-  }, [entity.pk ?? entity.id]);
+        if (!selection.isCollapsed) return;
 
-  return entity ? (
-    <Block name="annotation" onClick={e => e.stopPropagation()}>
-      {/* <Elem name="info" tag={Space} spread>
+        copyToClipboard(ev);
+        entity.deleteSelectedRegions();
+      };
+
+      window.addEventListener("copy", copyHandler);
+      window.addEventListener("paste", pasteHandler);
+      window.addEventListener("cut", cutHandler);
+      return () => {
+        window.removeEventListener("copy", copyHandler);
+        window.removeEventListener("paste", pasteHandler);
+        window.removeEventListener("cut", cutHandler);
+      };
+    }, [entity.pk ?? entity.id]);
+
+    return entity ? (
+      <Block name="annotation" onClick={e => e.stopPropagation()}>
+        {/* <Elem name="info" tag={Space} spread>
         <Elem name="id">
           {entity.type === 'annotation' ? <LsAnnotation /> : <LsSparks color="#944BFF"/>}
           <span className="text_id">ID: {entity.pk ?? entity.id}</span>
         </Elem>
       </Elem> */}
 
-      {/* <Elem name="parent_info">
+        {/* <Elem name="parent_info">
         <Space size="small"> */}
-      {/*Always show container to keep the interface layout unchangeable*/}
-      {/* {(entity.parent_prediction) && (
+        {/*Always show container to keep the interface layout unchangeable*/}
+        {/* {(entity.parent_prediction) && (
             <Tooltip title="Prediction ID from which this annotation was created">
               <Elem name="parent">
                 <Elem tag={LsParentLink} name="parent_link"/>
@@ -101,23 +97,22 @@ export const CurrentEntity = injector(observer(({
               </Elem>
             </Tooltip>
           )} */}
-      {/* </Space>
+        {/* </Space>
       </Elem> */}
 
-      {!isFF(FF_DEV_2290) && (
-        <DraftPanel item={entity} />
-      )}
+        {!isFF(FF_DEV_2290) && <DraftPanel item={entity} />}
 
-      {/* {showHistory && !entity.userGenerate && ( */}
-      {showHistory && (
-        <>
-          <Elem tag={Space} spread name="title">
-            Annotation History
-            <Elem name="id">#{entity.pk ?? entity.id}</Elem>
-          </Elem>
-          <AnnotationHistory/>
-        </>
-      )}
-    </Block>
-  ) : null;
-}));
+        {/* {showHistory && !entity.userGenerate && ( */}
+        {showHistory && (
+          <>
+            <Elem tag={Space} spread name="title">
+              Annotation History Cai DCMM
+              <Elem name="id">#{entity.pk ?? entity.id}</Elem>
+            </Elem>
+            <AnnotationHistory />
+          </>
+        )}
+      </Block>
+    ) : null;
+  }),
+);
