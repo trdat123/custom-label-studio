@@ -22,19 +22,8 @@ const DetailsPanelComponent: FC<DetailsPanelProps> = ({ currentEntity, regions, 
   );
 };
 
-const Content: FC<any> = observer(({
-  selection,
-  currentEntity,
-}) => {
-  return (
-    <>
-      {selection.size ? (
-        <RegionsPanel regions={selection}/>
-      ) : (
-        <GeneralPanel currentEntity={currentEntity}/>
-      )}
-    </>
-  );
+const Content: FC<any> = observer(({ selection, currentEntity }) => {
+  return <>{selection.size ? <RegionsPanel regions={selection} /> : <GeneralPanel currentEntity={currentEntity} />}</>;
 });
 
 const GeneralPanel: FC<any> = observer(({ currentEntity }) => {
@@ -52,43 +41,27 @@ const GeneralPanel: FC<any> = observer(({ currentEntity }) => {
         </Elem>
       </Elem>
       <Elem name="section">
-        <Elem name="section-head">
-          Relations ({relationStore.size})
-        </Elem>
+        <Elem name="section-head">Relations ({relationStore.size})</Elem>
         <Elem name="section-content">
-          <Relations
-            relationStore={relationStore}
-          />
+          <Relations relationStore={relationStore} />
         </Elem>
       </Elem>
     </>
   );
 });
 
-const RegionsPanel: FC<{regions:  any}> = observer(({
-  regions,
-}) => {
+const RegionsPanel: FC<{ regions: any }> = observer(({ regions }) => {
   return (
     <div>
       {regions.list.map((reg: any) => {
-        return (
-          <SelectedRegion key={reg.id} region={reg}/>
-        );
+        return <SelectedRegion key={reg.id} region={reg} />;
       })}
     </div>
   );
 });
 
-const SelectedRegion: FC<{region: any}> = observer(({
-  region,
-}) => {
-  return (
-    <RegionItem
-      region={region}
-      mainDetails={RegionDetailsMain}
-      metaDetails={RegionDetailsMeta}
-    />
-  );
+const SelectedRegion: FC<{ region: any }> = observer(({ region }) => {
+  return <RegionItem region={region} mainDetails={RegionDetailsMain} metaDetails={RegionDetailsMeta} />;
 });
 
 export const DetailsPanel = observer(DetailsPanelComponent);

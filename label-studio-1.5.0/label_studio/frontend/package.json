@@ -11,7 +11,7 @@
     "download:all": "npm run download:editor && npm run download:dm && npm run build",
     "download:editor": "npm run download -- lsf",
     "download:dm": "npm run download -- dm",
-    "download": "NO_BUILD=true node get-build.js"
+    "download": "node get-build.js"
   },
   "keywords": [],
   "browser": {},
