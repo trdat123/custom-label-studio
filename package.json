@@ -4,7 +4,14 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "watch-lsf": "cd label-studio-frontend && yarn watch",
+    "watch-dm2": "cd dm2 && yarn watch",
+    "watch-ls": "cd label-studio-1.5.0/label_studio/frontend && yarn start",
+    "build-dev": "concurrently \"watch-lsf\" \"watch-dm2\" \"watch-ls\"",
+    "build-lsf": "yarn build:module --prefix label-studio-frontend",
+    "build-dm2": "yarn build:module --prefix dm2",
+    "build-ls": "yarn build --prefix label-studio-1.5.0/label_studio/frontend",
+    "build-product": "concurrently \"build-lsf\" \"build-dm2\" \"build-ls\""
   },
   "repository": {
     "type": "git",
@@ -15,5 +22,8 @@
   "bugs": {
     "url": "https://github.com/trdat123/custom-label-studio/issues"
   },
-  "homepage": "https://github.com/trdat123/custom-label-studio#readme"
+  "homepage": "https://github.com/trdat123/custom-label-studio#readme",
+  "dependencies": {
+    "concurrently": "^7.2.2"
+  }
 }
