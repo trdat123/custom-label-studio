@@ -11,7 +11,7 @@ const { EnvironmentPlugin, DefinePlugin } = require("webpack");
 
 const workingDirectory = process.env.WORK_DIR
   ? path.resolve(__dirname, process.env.WORK_DIR)
-  : path.resolve(__dirname, "build");
+  : path.resolve(__dirname, "..",'label-studio-1.5.0','label_studio','frontend','dist','lsf');
 
 
 if (workingDirectory) {
