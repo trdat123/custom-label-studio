@@ -4,14 +4,16 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "watch-lsf": "cd label-studio-frontend && yarn watch",
-    "watch-dm2": "cd dm2 && yarn watch",
-    "watch-ls": "cd label-studio-1.5.0/label_studio/frontend && yarn start",
-    "build-dev": "concurrently \"yarn watch-lsf\" \"yarn watch-dm2\" \"yarn watch-ls\"",
-    "build-lsf": "cd label-studio-frontend && yarn build:module",
-    "build-dm2": "cd dm2 && yarn build:module",
-    "build-ls": "cd label-studio-1.5.0/label_studio/frontend && yarn build",
-    "build-product": "concurrently \"yarn build-lsf\" \"yarn build-dm2\" \"yarn build-ls\""
+    "watch:lsf": "cd label-studio-frontend && yarn watch",
+    "watch:dm2": "cd dm2 && yarn watch",
+    "watch:ls": "cd label-studio-1.5.0/label_studio/frontend && yarn start",
+    "build:dev": "concurrently \"yarn watch:lsf\" \"yarn watch:dm2\" \"yarn watch:ls\"",
+    "build:lsf": "cd label-studio-frontend && yarn build:module",
+    "build:dm2": "cd dm2 && yarn build:module",
+    "build:ls": "cd label-studio-1.5.0/label_studio/frontend && yarn build",
+    "start:server": "cd label-studio-1.5.0/label_studio && python label_studio/manage.py runserver",
+    "build:product": "concurrently \"yarn build:lsf\" \"yarn build:dm2\" \"yarn build:ls\"",
+    "build:full": "concurrently \"yarn build:lsf\" \"yarn build:dm2\" \"yarn build:ls\" \"yarn start:server\""
   },
   "repository": {
     "type": "git",
