@@ -1,0 +1,19 @@
+{
+  "name": "custom-label-studio",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/trdat123/custom-label-studio.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/trdat123/custom-label-studio/issues"
+  },
+  "homepage": "https://github.com/trdat123/custom-label-studio#readme"
+}
