@@ -34,8 +34,8 @@ const BUILD = {
 };
 
 const dirPrefix = {
-  js: customDistDir ? "js/" : isDevelopment ? "" : "static/js/",
-  css: customDistDir ? "css/" : isDevelopment ? "" : "static/css/",
+  js: "js/",
+  css:"css/",
 };
 
 const LOCAL_ENV = {
