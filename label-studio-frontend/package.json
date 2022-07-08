@@ -26,11 +26,7 @@
     }
   ],
   "scripts": {
-    "build-bundle": "yarn run build:final",
     "build-notsourcemap": "GENERATE_SOURCEMAP=false yarn run build",
-    "build:final": "yarn run build",
-    "build:no-hash": "yarn run build",
-    "build:module": "yarn run build:no-hash",
     "build": "webpack",
     "watch": "webpack --watch",
     "copy-examples": "bash scripts/copy.sh",
@@ -118,6 +114,7 @@
   "dependencies": {
     "@thi.ng/rle-pack": "^2.1.6",
     "babel-preset-react-app": "^9.1.1",
+    "custom-label-studio": "file:..",
     "d3": "^5.16.0",
     "magic-wand-js": "^1.0.0",
     "papaparse": "^5.3.1",
