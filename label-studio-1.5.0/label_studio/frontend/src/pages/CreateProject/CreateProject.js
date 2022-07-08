@@ -71,20 +71,13 @@ export const CreateProject = ({ onClose }) => {
     setError(null);
   }, [name]);
 
-  const { columns, uploading, uploadDisabled, finishUpload, pageProps } =
-    useImportPage(project);
+  const { columns, uploading, uploadDisabled, finishUpload, pageProps } = useImportPage(project);
 
   const rootClass = cn("create-project");
   const tabClass = rootClass.elem("tab");
   const steps = {
-    name: (
-      <span className={tabClass.mod({ disabled: !!error })}>Project Name</span>
-    ),
-    import: (
-      <span className={tabClass.mod({ disabled: uploadDisabled })}>
-        Data Import
-      </span>
-    ),
+    name: <span className={tabClass.mod({ disabled: !!error })}>Project Name</span>,
+    import: <span className={tabClass.mod({ disabled: uploadDisabled })}>Data Import</span>,
     config: "Labeling Setup",
   };
 
@@ -148,25 +141,14 @@ export const CreateProject = ({ onClose }) => {
   }, [project]);
 
   return (
-    <Modal
-      onHide={onDelete}
-      fullscreen
-      visible
-      bare
-      closeOnClickOutside={false}
-    >
+    <Modal onHide={onDelete} fullscreen visible bare closeOnClickOutside={false}>
       <div className={rootClass}>
         <Modal.Header>
           <h1>Create Project</h1>
           <ToggleItems items={steps} active={step} onSelect={setStep} />
 
           <Space>
-            <Button
-              look="danger"
-              size="compact"
-              onClick={onDelete}
-              waiting={waiting}
-            >
+            <Button look="danger" size="compact" onClick={onDelete} waiting={waiting}>
               Delete
             </Button>
             <Button

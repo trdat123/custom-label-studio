@@ -64,22 +64,22 @@ module.exports = {
     ],
     "no-async-promise-executor": "off",
     semi: [2, "always"],
-    "comma-dangle": [
-      "error",
-      {
-        imports: "never",
-        exports: "never",
-        functions: "always-multiline",
-        objects: "always-multiline",
-        arrays: "always-multiline",
-      },
-    ],
+    // "comma-dangle": [
+    //   "error",
+    //   {
+    //     imports: "never",
+    //     exports: "never",
+    //     functions: "always-multiline",
+    //     objects: "always-multiline",
+    //     arrays: "always-multiline",
+    //   },
+    // ],
     "object-curly-spacing": ["error", "always"],
     "array-bracket-spacing": ["error", "never"],
     "object-shorthand": ["error", "always"],
     eqeqeq: ["error", "always"],
     indent: "off",
-    "newline-after-var": ["error", "always"],
+    // "newline-after-var": ["error", "always"],
     "space-unary-ops": [
       2,
       {
