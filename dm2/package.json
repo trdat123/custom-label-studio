@@ -17,11 +17,7 @@
   ],
   "browser": {},
   "scripts": {
-    "build:bundle": "npm run build:final",
     "build:notsourcemap": "GENERATE_SOURCEMAP=false npm run build",
-    "build:final": "BUILD_NO_CHUNKS=true npm run build",
-    "build:no-hash": "BUILD_NO_HASH=true BUILD_NO_CHUNKS=true npm run build",
-    "build:module": "npm run build",
     "build:module-dev": "BUILD_NO_MINIMIZATION=true BUILD_NO_HASH=true BUILD_NO_CHUNKS=true BUILD_MODULE=true npm run build",
     "prettier-styles": "prettier --write src/**/*.scss",
     "prettier": "prettier --write src/**/*.js",
