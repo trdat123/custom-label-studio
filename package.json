@@ -11,7 +11,7 @@
     "build:lsf": "cd label-studio-frontend && yarn build:module",
     "build:dm2": "cd dm2 && yarn build:module",
     "build:ls": "cd label-studio-1.5.0/label_studio/frontend && yarn build",
-    "start:server": "cd label-studio-1.5.0/label_studio && python label_studio/manage.py runserver",
+    "start:server": "cd label-studio-1.5.0 && python label_studio/manage.py runserver",
     "build:product": "concurrently \"yarn build:lsf\" \"yarn build:dm2\" \"yarn build:ls\"",
     "build:full": "concurrently \"yarn build:lsf\" \"yarn build:dm2\" \"yarn build:ls\" \"yarn start:server\""
   },
