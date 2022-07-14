@@ -1,4 +1,4 @@
-<img src="https://raw.githubusercontent.com/heartexlabs/label-studio/master/images/ls_github_header.png"/>
+<img src="http://13.215.225.1/assets/nexon_logo.png"/>
 
 ![label-studio](https://img.shields.io/badge/Label%20Studio-V1.5.0-green) ![label-studio-frontend](https://img.shields.io/badge/Label%20Studio%20Frontend-V1.4.0-green) ![data-manager](https://img.shields.io/badge/Data%20manager-v2.0.5-green)
 
