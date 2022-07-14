@@ -71,20 +71,14 @@ def user_signup(request):
     })
 
 
-# @enforce_csrf_checks
+@enforce_csrf_checks
 def user_login(request):
     """ Login page
     """
     user = request.user
-    print("body: ",request.body)
-    print("user: ",user)
-    
-    print("full path: ", request.get_full_path())
     next_page = request.GET.get('next')
-    print(next_page)
     next_page = next_page if next_page else reverse('projects:project-index')
     login_form = load_func(settings.USER_LOGIN_FORM)
-    print("form: ",login_form)
     form = login_form()
 
     if user.is_authenticated:
@@ -92,9 +86,8 @@ def user_login(request):
 
     if request.method == 'POST':
         form = login_form(request.POST)
-        if form.is_valid(): 
+        if form.is_valid():
             user = form.cleaned_data['user']
-            print("user in form is valid: ", user)
             auth.login(request, user, backend='django.contrib.auth.backends.ModelBackend')
 
             # user is organization member
