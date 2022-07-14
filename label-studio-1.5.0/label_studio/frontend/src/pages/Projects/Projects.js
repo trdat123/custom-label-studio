@@ -1,17 +1,17 @@
-import React, { useEffect, useState } from "react";
-import { useParams as useRouterParams } from "react-router";
-import { Redirect } from "react-router-dom";
-import { Button } from "../../components";
-import { Oneof } from "../../components/Oneof/Oneof";
-import { Spinner } from "../../components/Spinner/Spinner";
-import { ApiContext } from "../../providers/ApiProvider";
-import { useContextProps } from "../../providers/RoutesProvider";
-import { Block, Elem } from "../../utils/bem";
-import { CreateProject } from "../CreateProject/CreateProject";
-import { DataManagerPage } from "../DataManager/DataManager";
-import { SettingsPage } from "../Settings";
-import "./Projects.styl";
-import { EmptyProjectsList, ProjectsList } from "./ProjectsList";
+import React, { useEffect, useState } from 'react';
+import { useParams as useRouterParams } from 'react-router';
+import { Redirect } from 'react-router-dom';
+import { Button } from '../../components';
+import { Oneof } from '../../components/Oneof/Oneof';
+import { Spinner } from '../../components/Spinner/Spinner';
+import { ApiContext } from '../../providers/ApiProvider';
+import { useContextProps } from '../../providers/RoutesProvider';
+import { Block, Elem } from '../../utils/bem';
+import { CreateProject } from '../CreateProject/CreateProject';
+import { DataManagerPage } from '../DataManager/DataManager';
+import { SettingsPage } from '../Settings';
+import './Projects.styl';
+import { EmptyProjectsList, ProjectsList } from './ProjectsList';
 
 const getCurrentPage = () => {
   const pageNumberFromURL = new URLSearchParams(location.search).get("page");
@@ -26,21 +26,21 @@ export const ProjectsPage = () => {
   const [currentPage, setCurrentPage] = useState(getCurrentPage());
   const [totalItems, setTotalItems] = useState(1);
   const setContextProps = useContextProps();
-  const defaultPageSize = parseInt(localStorage.getItem("pages:projects-list") ?? 30);
+  const defaultPageSize = parseInt(localStorage.getItem('pages:projects-list') ?? 30);
 
   const [modal, setModal] = React.useState(false);
   const openModal = setModal.bind(null, true);
   const closeModal = setModal.bind(null, false);
 
-  const fetchProjects = async (page = currentPage, pageSize = defaultPageSize) => {
-    setNetworkState("loading");
+  const fetchProjects = async (page  = currentPage, pageSize = defaultPageSize) => {
+    setNetworkState('loading');
     const data = await api.callApi("projects", {
       params: { page, page_size: pageSize },
     });
 
     setTotalItems(data?.count ?? 1);
     setProjectsList(data.results ?? []);
-    setNetworkState("loaded");
+    setNetworkState('loaded');
   };
 
   const loadNextPage = async (page, pageSize) => {
@@ -62,7 +62,7 @@ export const ProjectsPage = () => {
     <Block name="projects-page">
       <Oneof value={networkState}>
         <Elem name="loading" case="loading">
-          <Spinner size={64} />
+          <Spinner size={64}/>
         </Elem>
         <Elem name="content" case="loaded">
           {projectsList.length ? (
@@ -94,7 +94,7 @@ ProjectsPage.routes = ({ store }) => [
     component: () => {
       const params = useRouterParams();
 
-      return <Redirect to={`/projects/${params.id}/data`} />;
+      return <Redirect to={`/projects/${params.id}/data`}/>;
     },
     pages: {
       DataManagerPage,
@@ -104,9 +104,5 @@ ProjectsPage.routes = ({ store }) => [
 ];
 ProjectsPage.context = ({ openModal, showButton }) => {
   if (!showButton) return null;
-  return (
-    <Button onClick={openModal} look="primary" size="compact">
-      Create
-    </Button>
-  );
+  return <Button onClick={openModal} look="primary" size="compact">Create</Button>;
 };
