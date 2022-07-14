@@ -1,37 +1,58 @@
-import React from 'react';
-import { useHistory } from 'react-router';
-import { Button, ToggleItems } from '../../components';
-import { Modal } from '../../components/Modal/Modal';
-import { Space } from '../../components/Space/Space';
-import { useAPI } from '../../providers/ApiProvider';
-import { cn } from '../../utils/bem';
-import { ConfigPage } from './Config/Config';
+import React from "react";
+import { useHistory } from "react-router";
+import { Button, ToggleItems } from "../../components";
+import { Modal } from "../../components/Modal/Modal";
+import { Space } from "../../components/Space/Space";
+import { useAPI } from "../../providers/ApiProvider";
+import { cn } from "../../utils/bem";
+import { ConfigPage } from "./Config/Config";
 import "./CreateProject.styl";
-import { ImportPage } from './Import/Import';
-import { useImportPage } from './Import/useImportPage';
-import { useDraftProject } from './utils/useDraftProject';
+import { ImportPage } from "./Import/Import";
+import { useImportPage } from "./Import/useImportPage";
+import { useDraftProject } from "./utils/useDraftProject";
 
-
-const ProjectName = ({ name, setName, onSaveName, onSubmit, error, description, setDescription, show = true }) => !show ? null :(
-  <form className={cn("project-name")} onSubmit={e => { e.preventDefault(); onSubmit(); }}>
-    <div className="field field--wide">
-      <label htmlFor="project_name">Project Name</label>
-      <input name="name" id="project_name" value={name} onChange={e => setName(e.target.value)} onBlur={onSaveName} />
-      {error && <span className="error">{error}</span>}
-    </div>
-    <div className="field field--wide">
-      <label htmlFor="project_description">Description</label>
-      <textarea
-        name="description"
-        id="project_description"
-        placeholder="Optional description of your project"
-        rows="4"
-        value={description}
-        onChange={e => setDescription(e.target.value)}
-      />
-    </div>
-  </form>
-);
+const ProjectName = ({
+  name,
+  setName,
+  onSaveName,
+  onSubmit,
+  error,
+  description,
+  setDescription,
+  show = true,
+}) =>
+  !show ? null : (
+    <form
+      className={cn("project-name")}
+      onSubmit={(e) => {
+        e.preventDefault();
+        onSubmit();
+      }}
+    >
+      <div className="field field--wide">
+        <label htmlFor="project_name">Project Name</label>
+        <input
+          name="name"
+          id="project_name"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          onBlur={onSaveName}
+        />
+        {error && <span className="error">{error}</span>}
+      </div>
+      <div className="field field--wide">
+        <label htmlFor="project_description">Description</label>
+        <textarea
+          name="description"
+          id="project_description"
+          placeholder="Optional description of your project"
+          rows="4"
+          value={description}
+          onChange={(e) => setDescription(e.target.value)}
+        />
+      </div>
+    </form>
+  );
 
 export const CreateProject = ({ onClose }) => {
   const [step, setStep] = React.useState("name"); // name | import | config
@@ -46,7 +67,9 @@ export const CreateProject = ({ onClose }) => {
   const [description, setDescription] = React.useState("");
   const [config, setConfig] = React.useState("<View></View>");
 
-  React.useEffect(() => { setError(null); }, [name]);
+  React.useEffect(() => {
+    setError(null);
+  }, [name]);
 
   const { columns, uploading, uploadDisabled, finishUpload, pageProps } = useImportPage(project);
 
@@ -62,18 +85,21 @@ export const CreateProject = ({ onClose }) => {
   // this should trigger only once when we got project loaded
   React.useEffect(() => project && !name && setName(project.title), [project]);
 
-  const projectBody = React.useMemo(() => ({
-    title: name,
-    description,
-    label_config: config,
-  }), [name, description, config]);
+  const projectBody = React.useMemo(
+    () => ({
+      title: name,
+      description,
+      label_config: config,
+    }),
+    [name, description, config]
+  );
 
   const onCreate = React.useCallback(async () => {
     const imported = await finishUpload();
     if (!imported) return;
 
     setWaitingStatus(true);
-    const response = await api.callApi('updateProject',{
+    const response = await api.callApi("updateProject", {
       params: {
         pk: project.id,
       },
@@ -88,7 +114,7 @@ export const CreateProject = ({ onClose }) => {
 
   const onSaveName = async () => {
     if (error) return;
-    const res = await api.callApi('updateProjectRaw', {
+    const res = await api.callApi("updateProjectRaw", {
       params: {
         pk: project.id,
       },
@@ -103,11 +129,12 @@ export const CreateProject = ({ onClose }) => {
 
   const onDelete = React.useCallback(async () => {
     setWaitingStatus(true);
-    if (project) await api.callApi('deleteProject', {
-      params: {
-        pk: project.id,
-      },
-    });
+    if (project)
+      await api.callApi("deleteProject", {
+        params: {
+          pk: project.id,
+        },
+      });
     setWaitingStatus(false);
     history.replace("/projects");
     onClose?.();
@@ -146,7 +173,13 @@ export const CreateProject = ({ onClose }) => {
           show={step === "name"}
         />
         <ImportPage project={project} show={step === "import"} {...pageProps} />
-        <ConfigPage project={project} onUpdate={setConfig} show={step === "config"} columns={columns} disableSaveButton={true} />
+        <ConfigPage
+          project={project}
+          onUpdate={setConfig}
+          show={step === "config"}
+          columns={columns}
+          disableSaveButton={true}
+        />
       </div>
     </Modal>
   );
