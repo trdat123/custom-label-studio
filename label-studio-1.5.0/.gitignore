@@ -1,5 +1,4 @@
 node_modules
-dist
 *.lock
 *.pyc
 *.ipynb
@@ -75,3 +74,4 @@ docker-compose.override.yml
 .config/*
 .python_history
 .viminfo
+dist

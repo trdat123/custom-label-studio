@@ -34,7 +34,6 @@ Desktop.ini
 .DS_Store
 
 # Env
-.env
 .env.local
 .env.development.local
 .env.test.local
@@ -52,4 +51,3 @@ build/static/media/config.*.xml
 # codecept screenshots
 e2e/output
 src/core/feature-flags/flags.json
-.env
